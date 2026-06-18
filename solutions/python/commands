@@ -1,0 +1,13 @@
+https://exercism.org/docs/tracks/python/tests
+
+python3 -m pytest -o markers=task -x --ff <example_file_test.py>
+
+python3 -m pytest -o markers=task -x --ff -k <example_test_function.py>
+
+Using PDB, the Python Debugger, with pytest
+
+If you want to "debug like a pro", you can use the --pdb argument after the pytest command, and drop into the built-in Python debugger, PDB.
+
+$(my_venv) python3 -m pytest -o markers=task -x --ff --pdb <example_file_test.py>
+=============== 4 passed in 0.15s ===============
+
