@@ -42,3 +42,4 @@ ENV/
 
 # Coverage and test output
 coverage.xml
+.exercism/

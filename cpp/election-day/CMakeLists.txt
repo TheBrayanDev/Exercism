@@ -7,8 +7,8 @@ get_filename_component(exercise ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 # Name the project after the exercise
 project(${exercise} CXX)
 
-# The directory is numbered, while Exercism's source files use the exercise name.
-set(file pacman_rules)
+# Get a source filename from the exercise name by replacing -'s with _'s
+string(REPLACE "-" "_" file ${exercise})
 
 # Implementation could be only a header
 if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${file}.cpp)
@@ -47,7 +47,8 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "(GNU|Clang)")
     set_target_properties(${exercise} PROPERTIES
         # added "-Wno-unused-parameter" to remove compiler warnings
         # should make it easier for students to run their first real code
-        COMPILE_FLAGS "-Wall -Wextra -Wpedantic -Werror -Wno-unused-parameter"
+        # ignore sign compare, students don't know unsigned yet
+        COMPILE_FLAGS "-Wall -Wextra -Wpedantic -Werror -Wno-unused-parameter -Wno-sign-compare"
     )
 endif()
 

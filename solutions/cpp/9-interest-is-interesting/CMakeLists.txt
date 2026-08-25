@@ -7,8 +7,8 @@ get_filename_component(exercise ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 # Name the project after the exercise
 project(${exercise} CXX)
 
-# The directory is numbered, while Exercism's source files use the exercise name.
-set(file pacman_rules)
+# Get a source filename from the exercise name by replacing -'s with _'s
+string(REPLACE "-" "_" file ${exercise})
 
 # Implementation could be only a header
 if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${file}.cpp)
