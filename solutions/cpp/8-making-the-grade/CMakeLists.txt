@@ -8,7 +8,8 @@ get_filename_component(exercise ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 project(${exercise} CXX)
 
 # Get a source filename from the exercise name by replacing -'s with _'s
-string(REPLACE "-" "_" file ${exercise})
+string(REGEX REPLACE "^[0-9]+-" "" exercise_file ${exercise})
+string(REPLACE "-" "_" file ${exercise_file})
 
 # Implementation could be only a header
 if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${file}.cpp)
