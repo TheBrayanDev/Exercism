@@ -35,7 +35,7 @@ namespace say
         }
     }
 
-    std::string tens_in_english(std::string t)
+    std::string tens_in_english(const std::string& t)
     {
         if (t == "10")
         {
@@ -115,6 +115,43 @@ namespace say
         return answer;
     }
 
+    std::string hundred_in_english(std::string& number, int digits)
+    {
+        std::string answer{};
+
+        if (digits % 3 == 2)
+        {
+            answer += tens_in_english(number.substr(0, 2));
+            number = number.substr(2);
+        }
+        else if (digits % 3 == 1 && digits > 1)
+        {
+            answer += numbers_in_english(number[0]);
+            number = number.substr(1);
+        }
+        else if (digits % 3 == 0)
+        {
+            answer += numbers_in_english(number[0]) + " hundred";
+            std::string tens_part = tens_in_english(number.substr(1, 2));
+            if (!tens_part.empty())
+            {
+                answer += " " + tens_part;
+            }
+            
+            number = number.substr(3);
+        }
+        else if (digits == 1 && number[number.size() - 1] != '0')
+        {
+            answer += numbers_in_english(number[0]);
+        }
+        else if (number[0] == '0' && digits == 1)
+        {
+            return "zero";
+        }
+
+        return answer;
+    }
+
     std::string in_english(long long int x)
     {
         if (x > 999999999999 || x < 0)
@@ -123,24 +160,28 @@ namespace say
         }
 
         int digits = std::to_string(x).size();
-
+        int original_digits = digits;
         std::string number = std::to_string(x);
-        
         std::string answer{};
 
-        if (digits % 3 == 2)
+        while (digits >= 1)
         {
-            answer += tens_in_english(number.substr(0, 2));
+            answer += hundred_in_english(number, original_digits);
+            if (digits >= 10 && digits <= 12 && !number.empty()){
+                answer += " billion ";
+            }
+            else if (digits >= 7 && digits <= 9 && !number.empty()){
+                answer += " million ";
+            }
+            else if (digits >= 4 && digits <= 6 && !number.empty()){
+                answer += " thousand ";
+            }
+            digits -= 3;
         }
-        else if (digits % 3 == 1 && number[0] != '0')
+        if (answer.back() == ' ')
         {
-            answer += numbers_in_english(number[0]);
+            answer.pop_back();
         }
-        else
-        {
-            return "zero";
-        }
-
         return answer;
     }
 

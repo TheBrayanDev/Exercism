@@ -36,7 +36,7 @@ TEST_CASE("ninety-nine", "[738ce12d-ee5c-4dfb-ad26-534753a98327]") {
 TEST_CASE("one hundred", "[e417d452-129e-4056-bd5b-6eb1df334dce]") {
     REQUIRE("one hundred" == say::in_english(100));
 }
-#if defined(EXERCISM_RUN_ALL_TESTS)
+
 
 TEST_CASE("one hundred twenty-three",
           "[d6924f30-80ba-4597-acf6-ea3f16269da8]") {
@@ -91,5 +91,5 @@ TEST_CASE("numbers above 999,999,999,999 are out of range",
           "[4d6492eb-5853-4d16-9d34-b0f61b261fd9]") {
     REQUIRE_THROWS_AS(say::in_english(1000000000000), std::domain_error);
 }
-
+#if defined(EXERCISM_RUN_ALL_TESTS)
 #endif
